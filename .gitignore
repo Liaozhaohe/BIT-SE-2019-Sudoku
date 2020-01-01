@@ -1,6 +1,16 @@
 # Prerequisites
 *.d
 
+# VS 2019 Solution files
+.vs
+Sudoku/.vs
+Sudoku/Sudoku/x64
+Sudoku/Sudoku/*.vcxproj
+Sudoku/Sudoku/*.vcxproj.*
+Sudoku/x64
+*.sln
+
+
 # Compiled Object files
 *.slo
 *.lo
