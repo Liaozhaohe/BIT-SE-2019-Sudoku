@@ -44,10 +44,11 @@ void Sudoku::print() const
 
 void Sudoku::PrintToFile(const std::string & fileName)
 {
+	FILE* fp = fopen(fileName.c_str(), "w");
 	for (int i = 0; i < 9; i++)
 	{
 		for (int j = 0; j < 9; j++)
-			fprintf("%d", this->data[i][j]);
+			fprintf(fp, "%d", this->data[i][j]);
 		printf("\n");
 	}
 }
