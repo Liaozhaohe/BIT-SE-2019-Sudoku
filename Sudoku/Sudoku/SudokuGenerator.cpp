@@ -1,19 +1,19 @@
 #include "SudokuGenerator.h"
 
-bool SudokuGenerator::ValidateInput(const std::string* parameters)
+void SudokuGenerator::ValidateInput(const std::string* parameters)
 {
-	FILE* fp = fopen(parameters[0].c_str(), "w");
-	if (fp == NULL)
+	fopen_s(&this->outputFile, parameters[0].c_str(), "w");
+	if (this->outputFile == NULL)
+	{
 		throw std::invalid_argument("Input filename error, check you spelling\n");
-	fclose(fp);
-	for(int i = 0,len = parameters[1].length(); i < len; i++)
+	}
+	for (int i = 0, len = (int)parameters[1].length(); i < len; i++)
 	{
 		if (parameters[1][i] > '9' || parameters[1][i] < '0')
 		{
 			throw std::invalid_argument(" Argument 2 should be an integer!\n");
 		}
 	}
-	fclose(fp);
 }
 
 void SudokuGenerator::GenerateBaseSudoku(int num)
@@ -21,7 +21,9 @@ void SudokuGenerator::GenerateBaseSudoku(int num)
 	int n = 0;
 	do
 	{
-		sudokus[n].SetRow(this->firstRow, 0);
+		sudoku[n].SetRow(this->firstRow, 0);
+		sudoku[n].ConstructFromFirsrRow();
+		n++;
 	} while (n < num && std::next_permutation(this->firstRow + 1, this->firstRow + 9));
 	
 }
@@ -32,12 +34,12 @@ void SudokuGenerator::PrintSudoku() const
 	const int restSudokuNumber = this->sudokuNum % 72;
 	for (int i = 0; i < basicSudokuNumber - 1; i++)
 	{
-		this->sudokus[i].PrintExpandedSudoku(this->outputFile, -1);
+		this->sudoku[i].PrintExpandedSudoku(this->outputFile, -1);
 	}
-	this->sudokus[basicSudokuNumber].PrintExpandedSudoku(this->outputFile, restSudokuNumber);
+	this->sudoku[basicSudokuNumber-1].PrintExpandedSudoku(this->outputFile, restSudokuNumber);
 }
 
-SudokuGenerator::SudokuGenerator(const std::string &outputFile, int sudokuNum)
+SudokuGenerator::SudokuGenerator(const std::string &outputFile, const std::string& sudokuNum)
 {
 	try
 	{
@@ -50,12 +52,21 @@ SudokuGenerator::SudokuGenerator(const std::string &outputFile, int sudokuNum)
 		std::cout << "Error in constructor of SudokuGenerator: "<<e.what() << std::endl;
 	}
 
-	this->outputFile = outputFile;
-	this->sudokuNum = sudokuNum / 72 + 1;
-	this->sudokus = new Sudoku[this->sudokuNum];
+	fopen_s(&this->outputFile, outputFile.c_str(), "a+");
+	
+	this->sudokuNum = 0;
+	for (auto ch = sudokuNum.begin(); ch != sudokuNum.end(); ++ch)
+	{
+		this->sudokuNum *= 10;
+		this->sudokuNum += (*ch) - '0';
+	}
+	this->sudoku = new Sudoku[this->sudokuNum / 72 + 1];
 
-	for (int i = 0; i < 9; i++)
-		this->firstRow[i] = i;
+	firstRow[0] = 3;
+	firstRow[1] = 1;
+	firstRow[2] = 2;
+	for (int i = 3; i < 9; i++)
+		this->firstRow[i] = i + 1;
 }
 
 void SudokuGenerator::GenerateSudoku()
@@ -67,5 +78,6 @@ void SudokuGenerator::GenerateSudoku()
 
 SudokuGenerator::~SudokuGenerator()
 {
-	delete[] this->sudokus;
+	delete[] this->sudoku;
+	fclose(this->outputFile);
 }

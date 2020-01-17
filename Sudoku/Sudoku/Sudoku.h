@@ -9,9 +9,10 @@ public:
 	Sudoku(const Sudoku& sudoku);
 	~Sudoku();
 	void print() const;
-	void PrintToFile(const std::string& fileName) const;
-	void PrintExpandedSudoku(const std::string& fileName, int maxSudokuPrinted) const;
+	void PrintToFile(FILE* fp) const;
+	void PrintExpandedSudoku(FILE* fp, int maxSudokuPrinted) const;
 	void SetRow(const int row[9], int row_num);
+	void ConstructFromFirsrRow();
 	Sudoku& operator=(const Sudoku&);
 };
 

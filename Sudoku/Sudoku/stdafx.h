@@ -8,8 +8,3 @@
 #include <iostream>
 #include <algorithm>
 
-
-#include "Sudoku.h"
-#include "SudokuGenerator.h"
-#include "SudokuSolver.h"
-
