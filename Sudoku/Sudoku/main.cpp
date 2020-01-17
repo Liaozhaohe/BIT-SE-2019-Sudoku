@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "SudokuGenerator.h"
+#include "SudokuSolver.h"
 
 int main()
 {
-	SudokuGenerator generator("./Sudoku.txt", "1000000");
-	generator.GenerateSudoku();
+	//SudokuSolver("./Sudoku.txt", "./out.txt").SolveSudoku();
+	SudokuGenerator("./Sudoku.txt", "1000000").GenerateSudoku();
 	return 0;
 }

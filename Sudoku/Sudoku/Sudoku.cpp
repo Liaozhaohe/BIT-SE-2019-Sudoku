@@ -77,11 +77,11 @@ void Sudoku::PrintExpandedSudoku(FILE* fp, int maxSudokuPrinted) const
 				
 				fprintf(fp, "%s\n", row[thirdBlock[thirdBlockOrder][0]]);
 				fprintf(fp, "%s\n", row[thirdBlock[thirdBlockOrder][1]]);
-				fprintf(fp, "%s\n", row[thirdBlock[thirdBlockOrder][2]]);
+				fprintf(fp, "%s", row[thirdBlock[thirdBlockOrder][2]]);
 
 				if (maxSudokuPrinted != 0)
 				{
-					fprintf(fp, "\n");
+					fprintf(fp, "\n\n");
 				}
 				else
 				{
