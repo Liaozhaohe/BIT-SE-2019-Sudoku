@@ -2,6 +2,7 @@
 
 Sudoku::Sudoku(const int data[9][9])
 {
+	memset(this->data, 0, sizeof(this->data));
 	if(data != NULL)
 	{
 		for (int i = 0; i < 9; i++)
@@ -12,6 +13,7 @@ Sudoku::Sudoku(const int data[9][9])
 
 Sudoku::Sudoku(const Sudoku& sudoku)
 {
+	memset(this->data, 0, sizeof(this->data));
 	for (int i = 0; i < 9; i++)
 		for (int j = 0; j < 9; j++)
 			this->data[i][j] = sudoku.data[i][j];
@@ -36,9 +38,11 @@ void Sudoku::PrintToFile(FILE* fp) const
 	
 	for (int i = 0; i < 9; i++)
 	{
-		for (int j = 0; j < 9; j++)
-			fprintf(fp, "%d", this->data[i][j]);
-		printf("\n");
+		for (int j = 0; j < 8; j++)
+			fprintf(fp, "%d ", this->data[i][j]);
+		fprintf(fp, "%d", this->data[i][8]);
+		if (i < 8)
+			fprintf(fp, "\n");
 	}
 }
 
