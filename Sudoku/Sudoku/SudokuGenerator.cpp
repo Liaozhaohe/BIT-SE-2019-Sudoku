@@ -2,7 +2,7 @@
 
 void SudokuGenerator::ValidateInput(const std::string* parameters)
 {
-	fopen_s(&this->outputFile, parameters[0].c_str(), "w");
+	fopen_s(&this->outputFile, parameters[0].c_str(), "a+");
 	if (this->outputFile == NULL)
 	{
 		throw std::invalid_argument("Input filename error, check you spelling\n");
@@ -22,7 +22,7 @@ void SudokuGenerator::GenerateBaseSudoku(int num)
 	do
 	{
 		sudoku[n].SetRow(this->firstRow, 0);
-		sudoku[n].ConstructFromFirsrRow();
+		sudoku[n].ConstructFromFirstRow();
 		n++;
 	} while (n < num && std::next_permutation(this->firstRow + 1, this->firstRow + 9));
 	
@@ -51,8 +51,6 @@ SudokuGenerator::SudokuGenerator(const std::string &outputFile, const std::strin
 	{
 		std::cout << "Error in constructor of SudokuGenerator: "<<e.what() << std::endl;
 	}
-
-	fopen_s(&this->outputFile, outputFile.c_str(), "a+");
 	
 	this->sudokuNum = 0;
 	for (auto ch = sudokuNum.begin(); ch != sudokuNum.end(); ++ch)

@@ -1,27 +1,17 @@
 #include "Sudoku.h"
 
-Sudoku::Sudoku(const int** data)
+Sudoku::Sudoku(const int data[9][9])
 {
-	this->data = new int* [9];
-	for (int i = 0; i < 9; i++)
-	{
-		this->data[i] = new int[9];
-		memset(this->data[i], 0, sizeof(int) * 9);
-	}
 	if(data != NULL)
 	{
 		for (int i = 0; i < 9; i++)
 			for (int j = 0; j < 9; j++)
 				this->data[i][j] = data[i][j];
 	}
-
 }
 
 Sudoku::Sudoku(const Sudoku& sudoku)
 {
-	this->data = new int* [9];
-	for (int i = 0; i < 9; i++)
-		this->data[i] = new int [9];
 	for (int i = 0; i < 9; i++)
 		for (int j = 0; j < 9; j++)
 			this->data[i][j] = sudoku.data[i][j];
@@ -29,11 +19,6 @@ Sudoku::Sudoku(const Sudoku& sudoku)
 
 Sudoku::~Sudoku()
 {
-	for(int i = 0; i < 9; i++)
-	{
-		delete[] this->data[i];
-	}
-	delete[] this->data;
 }
 
 void Sudoku::print() const
@@ -112,7 +97,7 @@ void Sudoku::SetRow(const int row[9], int row_num)
 	memcpy(this->data[row_num], row, sizeof(int) * 9);
 }
 
-void Sudoku::ConstructFromFirsrRow()
+void Sudoku::ConstructFromFirstRow()
 {
 	int f[10] = { 0,3,6,1,4,7,2,5,8 };
 	for(int i = 1; i < 9; i++)
@@ -127,9 +112,6 @@ void Sudoku::ConstructFromFirsrRow()
 
 Sudoku& Sudoku::operator=(const Sudoku& sudoku)
 {
-	this->data = new int* [9];
-	for (int i = 0; i < 9; i++)
-		this->data[i] = new int[9];
 	for (int i = 0; i < 9; i++)
 		for (int j = 0; j < 9; j++)
 			this->data[i][j] = sudoku.data[i][j];
