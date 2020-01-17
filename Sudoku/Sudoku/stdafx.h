@@ -5,8 +5,11 @@
 #include <cstdlib>
 #include <memory.h>
 #include <string>
+#include <iostream>
+#include <algorithm>
+
 
 #include "Sudoku.h"
-#include "SudokuGenerater.h"
+#include "SudokuGenerator.h"
 #include "SudokuSolver.h"
 
