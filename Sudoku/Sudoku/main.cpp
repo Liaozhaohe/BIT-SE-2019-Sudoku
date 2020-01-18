@@ -10,11 +10,11 @@ int main(int argc, char** argv)
 	}
 	if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "-C"))
 	{
-		SudokuGenerator("./Sudoku.txt", argv[2]).GenerateSudoku();
+		SudokuGenerator("./sudoku.txt", argv[2]).GenerateSudoku();
 	}
 	else if (!strcmp(argv[1], "-s") || !strcmp(argv[1], "-S"))
 	{
-		SudokuSolver(argv[2], "./Sudoku.txt").SolveSudoku();
+		SudokuSolver(argv[2], "./sudoku.txt").SolveSudoku();
 	}
 	return 0;
 }
