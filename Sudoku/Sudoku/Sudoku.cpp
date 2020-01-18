@@ -49,14 +49,16 @@ void Sudoku::PrintToFile(FILE* fp) const
 
 void Sudoku::PrintExpandedSudoku(FILE* fp, int maxSudokuPrinted) const
 {
-	char row[9][10];
+	char row[9][19];
 	memset(row, 0, sizeof(row));
 	for (int i = 0; i < 9; i++)
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			row[i][j] += '0' + this->data[i][j];
+			row[i][j<<1] = '0' + this->data[i][j];
+			row[i][(j << 1) + 1] = ' ';
 		}
+		row[i][17] = 0;
 	}
 	int outputOrder[9];
 	memset(outputOrder, 0, sizeof(outputOrder));
