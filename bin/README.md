@@ -11,7 +11,6 @@ sudoku.exe -c n
 
 
 To solve the sudoku problems in `question_file`, please use:
- To generate `n` not repeating sodukus, please use:
 ```
 sudoku.exe -s question_file
 ```
