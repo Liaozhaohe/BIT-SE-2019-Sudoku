@@ -74,20 +74,31 @@ inline int SudokuSolver::blockId(int x, int y)
 	return (3 * (x / 3) + (y / 3));
 }
 
-int SudokuSolver::nextVal(int x, int y, int start)
+inline int SudokuSolver::nextVal(int x, int y, int start)
 {
 	int block = blockId(x, y);
-	for (int i = start; i < 9; i++)
-	{
-		if (constraint[0][x][i]) continue;
-		if (constraint[1][y][i]) continue;
-		if (constraint[2][block][i]) continue;
-		return i;
-	}
+	if (start <= 0 && !constraint[0][x][0]&&!constraint[1][y][0]&&!constraint[2][block][0])
+		return 0;
+	if (start <= 1 && !constraint[0][x][1]&&!constraint[1][y][1]&&!constraint[2][block][1])
+		return 1;
+	if (start <= 2 && !constraint[0][x][2]&&!constraint[1][y][2]&&!constraint[2][block][2])
+		return 2;
+	if (start <= 3 && !constraint[0][x][3]&&!constraint[1][y][3]&&!constraint[2][block][3])
+		return 3;
+	if (start <= 4 && !constraint[0][x][4]&&!constraint[1][y][4]&&!constraint[2][block][4])
+		return 4;
+	if (start <= 5 && !constraint[0][x][5]&&!constraint[1][y][5]&&!constraint[2][block][5])
+		return 5;
+	if (start <= 6 && !constraint[0][x][6]&&!constraint[1][y][6]&&!constraint[2][block][6])
+		return 6;
+	if (start <= 7 && !constraint[0][x][7]&&!constraint[1][y][7]&&!constraint[2][block][7])
+		return 7;
+	if (start <= 8 && !constraint[0][x][8]&&!constraint[1][y][8]&&!constraint[2][block][8])
+		return 8;
 	return -1;
 }
 
-void SudokuSolver::updateConstraint(int x, int y, bool startTracing)
+inline void SudokuSolver::updateConstraint(int x, int y, bool startTracing)
 {
 	const int block = blockId(x, y);
 	const int value = sudoku[x][y];
