@@ -2,16 +2,23 @@
 
 void SudokuGenerator::ValidateInput(const std::string* parameters)
 {
-	fopen_s(&this->outputFile, parameters[0].c_str(), "a+");
-	if (this->outputFile == NULL)
+	int res;
+	if ((res = fopen_s(&this->outputFile, parameters[0].c_str(), "w")) != 0)
 	{
+		printf("Error: %d\n", res);
 		throw std::invalid_argument("Input filename error, check you spelling\n");
 	}
 	for (int i = 0, len = (int)parameters[1].length(); i < len; i++)
 	{
 		if (parameters[1][i] > '9' || parameters[1][i] < '0')
 		{
-			throw std::invalid_argument(" Argument 2 should be an integer!\n");
+			fclose(this->outputFile);
+			throw std::invalid_argument(" Argument 2 should be an positive integer!\n");
+		}
+		if (len == 1 && parameters[1][0] == '0')
+		{
+			fclose(this->outputFile);
+			throw std::invalid_argument(" Argument 2 should not be 0!\n");
 		}
 	}
 }
@@ -50,6 +57,7 @@ SudokuGenerator::SudokuGenerator(const std::string &outputFile, const std::strin
 	catch (std::exception &e)
 	{
 		std::cout << "Error in constructor of SudokuGenerator: "<<e.what() << std::endl;
+		throw std::invalid_argument(e.what());
 	}
 	
 	this->sudokuNum = 0;

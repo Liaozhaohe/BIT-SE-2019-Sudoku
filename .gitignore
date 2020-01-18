@@ -41,3 +41,13 @@ Sudoku/x64
 *.out
 *.app
 *.txt
+/Sudoku/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1
+/Sudoku/Sudoku/Debug
+/Sudoku/SudokuGeneratorTest/Debug
+/Sudoku/SudokuGeneratorTest/x64
+*.vcxproj
+*.filters
+*.user
+/Sudoku/TestResults
+/Sudoku/Debug
+/Sudoku/SudokuGeneratorTest

@@ -6,7 +6,7 @@ void SudokuSolver::ValidateInput(const std::string* parameters)
 	fopen_s(&this->inputFile, parameters[0].c_str(), "r");
 	if (this->inputFile == NULL) 
 		throw std::invalid_argument("Error: Please check the input file name");
-	fopen_s(&this->outputFile, parameters[1].c_str(), "a+");
+	fopen_s(&this->outputFile, parameters[1].c_str(), "w");
 	if (this->inputFile == NULL) 
 		throw std::invalid_argument("Error: Please check the output file name");
 }
@@ -16,7 +16,15 @@ SudokuSolver::SudokuSolver(const std::string& inputFile, const std::string& outp
 	std::string params[2] = { inputFile, outputFile };
 	this->inputFile = NULL;
 	this->outputFile = NULL;
-	this->ValidateInput(params);
+	try
+	{
+		this->ValidateInput(params);
+	}
+	catch (std::exception e)
+	{
+		std::cout << "Error in constructor of SudokuGenerator: " << e.what() << std::endl;
+		exit(-1);
+	}
 	memset(this->isEmpty, 0,sizeof(isEmpty));
 	memset(this->sudoku ,0,sizeof(this->sudoku));
 	memset(this->constraint, 0, sizeof(this->constraint));
@@ -35,7 +43,7 @@ void SudokuSolver::SolveSudoku()
 		memset(this->constraint, 0, sizeof(this->constraint));
 		for(int i = 0; i < 9; i++)
 		{
-			int res = fread_s(cdata[i], (size_t)20, sizeof(char), (size_t)18, this->inputFile);
+			const size_t res = fread_s(cdata[i], (size_t)20, sizeof(char), (size_t)18, this->inputFile);
 			if (res == 0)
 			{
 				lastSolution = true;
