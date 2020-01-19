@@ -39,11 +39,24 @@ void SudokuGenerator::PrintSudoku() const
 {
 	const int basicSudokuNumber = this->sudokuNum / 72 + 1;
 	const int restSudokuNumber = this->sudokuNum % 72;
-	for (int i = 0; i < basicSudokuNumber - 1; i++)
+	if (restSudokuNumber == 0)
 	{
-		this->sudoku[i].PrintExpandedSudoku(this->outputFile, -1);
+		for (int i = 0; i < basicSudokuNumber - 2; i++)
+		{
+			this->sudoku[i].PrintExpandedSudoku(this->outputFile, -1);
+		}
+		this->sudoku[basicSudokuNumber - 2].PrintExpandedSudoku(this->outputFile, 71);
+		fprintf(this->outputFile, "\n\n");
+		this->sudoku[basicSudokuNumber - 1].PrintExpandedSudoku(this->outputFile, 1);
 	}
-	this->sudoku[basicSudokuNumber-1].PrintExpandedSudoku(this->outputFile, restSudokuNumber);
+	else
+	{
+		for (int i = 0; i < basicSudokuNumber - 1; i++)
+		{
+			this->sudoku[i].PrintExpandedSudoku(this->outputFile, -1);
+		}
+		this->sudoku[basicSudokuNumber - 1].PrintExpandedSudoku(this->outputFile, restSudokuNumber);
+	}
 }
 
 SudokuGenerator::SudokuGenerator(const std::string &outputFile, const std::string& sudokuNum)

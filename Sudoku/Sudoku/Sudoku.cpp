@@ -72,7 +72,10 @@ void Sudoku::PrintExpandedSudoku(FILE* fp, int maxSudokuPrinted) const
 		{
 			for (int thirdBlockOrder = 0; thirdBlockOrder < 6; thirdBlockOrder++)
 			{
-				maxSudokuPrinted--;
+				if (maxSudokuPrinted == 0)
+					return;
+				else
+					maxSudokuPrinted--;
 				fprintf(fp, "%s\n", row[firstBlock[firstBlockOrder][0]]);
 				fprintf(fp, "%s\n", row[firstBlock[firstBlockOrder][1]]);
 				fprintf(fp, "%s\n", row[firstBlock[firstBlockOrder][2]]);
