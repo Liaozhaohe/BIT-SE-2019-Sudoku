@@ -10,11 +10,29 @@ int main(int argc, char** argv)
 	}
 	if(!strcmp(argv[1], "-c") || !strcmp(argv[1], "-C"))
 	{
-		SudokuGenerator("./sudoku.txt", argv[2]).GenerateSudoku();
+		try
+		{
+			SudokuGenerator("./sudoku.txt", argv[2]).GenerateSudoku();
+		}
+		catch (std::exception &e)
+		{
+			std::cout << "Main receives error in SudokuGenerator: " << e.what() << std::endl;
+			exit(-1);
+		}
+
 	}
 	else if (!strcmp(argv[1], "-s") || !strcmp(argv[1], "-S"))
 	{
-		SudokuSolver(argv[2], "./sudoku.txt").SolveSudoku();
+		try
+		{
+			SudokuSolver(argv[2], "./sudoku.txt").SolveSudoku();
+		}
+		catch (std::exception &e)
+		{
+			std::cout << "Main receives error in SudokuGenerator: " << e.what() << std::endl;
+			exit(-1);
+		}
 	}
+	
 	return 0;
 }
